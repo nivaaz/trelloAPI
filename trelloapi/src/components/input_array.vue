@@ -22,7 +22,7 @@
             <button class="muted-button" @click="editing = null">Cancel</button>
         </td>
         <td v-else>
-            <button @click="editMode(board.id)">Edit</button>
+            <button @click="editMode(board)">Edit</button>
             <button @click="$emit('delete:board', board.id)">Delete</button>
         </td>
         </tr>
@@ -40,8 +40,13 @@ export default {
         editing: -1,
     },
     methods:{
-        editMode(id){
-            this.editing = id;
+        editMode(board){
+            this.cachedBoard = Object.assign({}, board)
+            this.editing = board.id;
+        },
+        cancelEdit(board){
+            Object.assign(board, this.cachedBoard)
+            this.editing = null;
         },
         editBoard(board){
              if (board.name === '' || board.email === '') return
