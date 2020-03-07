@@ -1,17 +1,22 @@
 <template>
     <div>
-
-        <h1> Here is the component </h1>
+        <h1> Boards </h1>
         <table>
         <tr >
-          <td>Name </td>
-          <td> Email </td>
+          <td > <h2> Name</h2> </td>
+          <td ><h2> # Cards </h2> </td>
+         
+
         </tr>
       <!-- ...thead... -->
       <tbody>
         <tr v-for="board in boards" :key="board.id">
           <td>This board is named {{ board.name }}.</td>
           <td> This board has {{ board.cardsNumber }} cards. </td>
+           <td >
+              <button> ✏ </button>
+              <button @click="$emit('delete:board', board.id)"> 🗑️ </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -30,20 +35,21 @@ export default {
 
 <style scoped>
 h1{
-    color: pink;
+    color: crimson;
 }
 input{
     padding: 1em;
 }
-button{
-    color: crimson;
-    text-transform: uppercase;
-    background-color: white;
-    border: 2px solid crimson;
-    border-radius: 1em;
-    padding: 1em;
+
+td{
+    color: grey;
+    padding: 0.5em;
 }
-tr{
-    border: 2px solid crimson;
+table{
+    margin: 0 auto;
+}
+h2{
+    font-weight: bold;
+    color: crimson;
 }
 </style>

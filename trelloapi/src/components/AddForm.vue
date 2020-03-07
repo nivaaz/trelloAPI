@@ -5,9 +5,11 @@
         v-model="board.name" 
         type="text"
         @focus="clearStatus"
-        @keypress="clearStatus" />
+        @keypress="clearStatus"
+        ref="first"
+         />
      
-        <label> Email </label>
+        <label> Number of Cards </label>
      <input 
         v-model="board.cardsNumber" 
         type="text"
@@ -63,15 +65,22 @@ export default {
 
            this.$emit('add:board', this.board)
 
+            this.$refs.first.focus()
+            //adding was succesful 
            this.error = false;
            this.success= true;
            this.submitting = false;
            
+            this.resetBoard();
+
        },
        clearStatus(){
            this.success = false;
            this.error = false;
-
+       },
+       resetBoard(){
+           this.board.name = '';
+           this.board.cardsNumber = '';
        }
    }
 }
@@ -81,9 +90,30 @@ export default {
 h1{
     color: pink;
 }
+button{
+    color: crimson;
+    text-transform: uppercase;
+    background-color: white;
+    border: 2px solid crimson;
+    border-radius: 1em;
+    padding: 1em;
+    font-weight: bold;
+}
+input{
+    color: crimson;
+    border: 1px solid lightgray;
+    border-radius: 1em;
+    padding: 1em;
+}
 form {
-    margin-bottom: 2rem;
+    margin: 2em;
+    text-align: left;
+    display: grid;
+    grid-gap: 1em;
+    color: crimson;
+    font-weight: bold;
   }
+
 
 [class*='-message'] {
     font-weight: 500;

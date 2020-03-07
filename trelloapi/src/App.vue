@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <InputArray :boards='boards' />
+    <InputArray 
+    :boards="boards" @delete:board="deleteBoard"
+     />
     <AddForm @add:board="addBoard"/>
   </div>
 </template>
@@ -18,7 +20,6 @@ export default {
   }, 
  data(){
    return {
-    
       boards:[
         {
           id: 0, 
@@ -34,6 +35,11 @@ export default {
    }
  },
  methods:{
+   deleteBoard(id) {
+    this.boards = this.boards.filter(
+      board => board.id !== id
+    )
+  },
    addBoard(board){
      const lastId =
     this.boards.length > 0
