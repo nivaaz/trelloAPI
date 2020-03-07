@@ -15,6 +15,7 @@
 import InputArray from './components/input_array.vue'
 import AddForm from './components/AddForm.vue'
 
+
 export default {
   name: 'App',
   components: {
@@ -37,7 +38,24 @@ export default {
            ]
    }
  },
+  mounted() {
+    this.getEmployees()
+  },
  methods:{
+   async getEmployees(){
+      try {
+        // const API_BASE = "https://api.trello.com/1/";
+        const API_ME_BASE = "https://api.trello.com/1/members/me/";
+        const KEY = "47836fa3a77b0663415e2e5f7152222b";
+        const TOKEN = "XXXX";
+        const response = await fetch(`${API_ME_BASE}boards?key=${KEY}&token=${TOKEN}&fields=name`);
+        const data = await response.json()
+        console.log(data)
+      } catch (error) {
+        console.log("error")
+       console.error(error)
+  }
+   },
    deleteBoard(id) {
     this.boards = this.boards.filter(
       board => board.id !== id
