@@ -5,18 +5,26 @@
         <tr >
           <td > <h2> Name</h2> </td>
           <td ><h2> # Cards </h2> </td>
-         
-
         </tr>
       <!-- ...thead... -->
       <tbody>
         <tr v-for="board in boards" :key="board.id">
-          <td>This board is named {{ board.name }}.</td>
-          <td> This board has {{ board.cardsNumber }} cards. </td>
-           <td >
-              <button> ✏ </button>
-              <button @click="$emit('delete:board', board.id)"> 🗑️ </button>
-          </td>
+        <td v-if="editing === board.id">
+            <input type="text" v-model="board.name" />
+        </td>
+        <td v-else>{{board.name}}</td>
+        <td v-if="editing === board.id">
+            <input type="text" v-model="board.cardsNumber" />
+        </td>
+        <td v-else>{{board.cardsNumber}}</td>
+        <td v-if="editing === board.id">
+            <button @click="editBoard(board)">Save</button>
+            <button class="muted-button" @click="editing = null">Cancel</button>
+        </td>
+        <td v-else>
+            <button @click="editMode(board.id)">Edit</button>
+            <button @click="$emit('delete:board', board.id)">Delete</button>
+        </td>
         </tr>
       </tbody>
     </table>
@@ -29,6 +37,18 @@ export default {
     name: 'InputArray',
     props:{
         boards: Array,
+        editing: -1,
+    },
+    methods:{
+        editMode(id){
+            this.editing = id;
+        },
+        editBoard(board){
+             if (board.name === '' || board.email === '') return
+            this.$emit('edit:board', board.id, board)
+            this.editing = null
+        }
+
     }
 }
 </script>

@@ -2,7 +2,10 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <InputArray 
-    :boards="boards" @delete:board="deleteBoard"
+    :boards="boards" 
+    @delete:board="deleteBoard"
+    @edit:board="editBoard"
+
      />
     <AddForm @add:board="addBoard"/>
   </div>
@@ -39,6 +42,11 @@ export default {
     this.boards = this.boards.filter(
       board => board.id !== id
     )
+  },
+  editBoard(id, updatedBoard){
+   this.boards = this.boards.map(board =>
+    board.id === id ? updatedBoard : board
+  )
   },
    addBoard(board){
      const lastId =
