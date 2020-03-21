@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-   
     <TrelloPop />
   </div>
 </template>
@@ -27,7 +25,6 @@ export default {
  methods:{
    async getEmployees(){
       try {
-        // const API_BASE = "https://api.trello.com/1/";
         const API_ME_BASE = "https://api.trello.com/1/members/me/";
         const KEY = "47836fa3a77b0663415e2e5f7152222b";
         const TOKEN = this.token;
